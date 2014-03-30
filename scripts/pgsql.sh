@@ -20,7 +20,7 @@ sudo echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" | sud
 sudo apt-get update
 
 # Install PostgreSQL
-sudo apt-get install -y postgresql postgresql-contrib
+sudo apt-get install -y postgresql postgresql-contrib libpq-dev
 
 
 # Configure PostgreSQL
