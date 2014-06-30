@@ -13,7 +13,7 @@ sudo apt-get update
 
 # Install base packages
 # -qq implies -y --force-yes
-sudo apt-get install -qq curl unzip git-core ack-grep make build-essential
+sudo apt-get install -qq curl unzip git-core ack-grep build-essential
 
 # Git Config and set Owner
 curl --silent -L $github_url/helpers/gitconfig > /home/vagrant/.gitconfig
