@@ -30,6 +30,7 @@ fi
 if [[ $NODE_IS_INSTALLED -ne 0 ]]; then
 
     echo ">>> Installing Node Version Manager"
+    echo ">>> debug: current home path is: $HOME"
 
     # Install NVM
     curl --silent -L $GITHUB_URL/helpers/nvm_install.sh | sh
