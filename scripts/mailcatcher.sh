@@ -11,7 +11,8 @@ apache2 -v > /dev/null 2>&1
 APACHE_IS_INSTALLED=$?
 
 # Installing dependency
-sudo apt-get install -y libsqlite3-dev
+# -qq implies -y --force-yes
+sudo apt-get install -qq libsqlite3-dev
 
 if $(which rvm) -v > /dev/null 2>&1; then
 	echo ">>>>Installing with RVM"
@@ -29,14 +30,14 @@ fi
 sudo echo "@reboot $(which mailcatcher) --ip=0.0.0.0" >> /etc/crontab
 sudo update-rc.d cron defaults
 
-if [[ $PHP_IS_INSTALLED ]]; then
+if [[ $PHP_IS_INSTALLED -eq 0 ]]; then
 	# Make php use it to send mail
 	sudo echo "sendmail_path = /usr/bin/env $(which catchmail)" >> /etc/php5/mods-available/mailcatcher.ini
 	sudo php5enmod mailcatcher
 	sudo service php5-fpm restart
 fi
 
-if [[ $APACHE_IS_INSTALLED ]]; then
+if [[ $APACHE_IS_INSTALLED -eq 0 ]]; then
 	sudo service apache2 restart
 fi
 
@@ -45,11 +46,6 @@ fi
 
 # Add aliases
 if [[ -f "/home/vagrant/.profile" ]]; then
-	sudo echo "\nalias mailcatcher=\"mailcatcher --ip=0.0.0.0\"" >> /home/vagrant/.profile
+	sudo echo "alias mailcatcher=\"mailcatcher --ip=0.0.0.0\"" >> /home/vagrant/.profile
 	. /home/vagrant/.profile
-fi
-
-if [[ -f "/home/vagrant/.zshrc" ]]; then
-	sudo echo "\nalias mailcatcher=\"mailcatcher --ip=0.0.0.0\"" >> /home/vagrant/.zshrc
-	. /home/vagrant/.zshrc
 fi
