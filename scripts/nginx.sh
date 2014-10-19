@@ -67,4 +67,8 @@ if [[ $HHVM_IS_INSTALLED -ne 0 && $PHP_IS_INSTALLED -eq 0 ]]; then
     sudo service php5-fpm restart
 fi
 
+sudo rm /etc/nginx/sites-enabled/vagrant
+sudo cp /vagrant/server-conf/nginx/default /etc/nginx/sites-available/default
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
 sudo service nginx restart
