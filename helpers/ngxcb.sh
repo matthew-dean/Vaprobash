@@ -130,7 +130,13 @@ cat <<EOF
         error_log  /var/log/nginx/vagrant.com-error.log error;
 
         charset utf-8;
-
+        send_timeout                10m;
+        client_header_timeout       10m;
+        client_body_timeout         10m;
+        client_max_body_size        100m;
+    
+        large_client_header_buffers 8 32k;
+        
         location / {
             proxy_buffer_size       32k;
             keepalive 64;
