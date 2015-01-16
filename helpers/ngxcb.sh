@@ -132,6 +132,8 @@ cat <<EOF
         charset utf-8;
 
         location / {
+            proxy_buffer_size       32k;
+            keepalive 64;
             try_files \$uri \$uri/ /app.php?\$query_string /index.php?\$query_string;
         }
 
